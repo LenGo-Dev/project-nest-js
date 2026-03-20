@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
@@ -22,11 +23,18 @@ export class OrdersController {
   }
 
   @Get('/:id')
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  getById(@Param('id', new ParseUUIDPipe()) id: string) {
-    const order = this.ordersService.getById(id);
+  async getById(@Param('id', new ParseUUIDPipe()) id: string) {
+    const order = await this.ordersService.getById(id);
     if (!order) throw new NotFoundException('Order not found');
     return order;
+  }
+
+  @Delete('/:id')
+  async deleteById(@Param('id', new ParseUUIDPipe()) id: string) {
+    if (!(await this.ordersService.getById(id)))
+      throw new NotFoundException('Product not found');
+    await this.ordersService.deleteById(id);
+    return { success: true };
   }
 
   @Post('/')
@@ -35,15 +43,14 @@ export class OrdersController {
   }
 
   @Put('/:id')
-  update(
+  async update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() orderData: UpdateOrdertDTO,
   ) {
-    if (!this.ordersService.getById(id))
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    if (!(await this.ordersService.getById(id)))
       throw new NotFoundException('Order not found');
 
-    this.ordersService.updateById(id, orderData);
+    await this.ordersService.updateById(id, orderData);
     return { success: true };
   }
 }
