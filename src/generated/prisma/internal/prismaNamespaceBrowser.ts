@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Product: 'Product',
+  Client: 'Client',
   Order: 'Order'
 } as const
 
@@ -83,11 +84,21 @@ export const ProductScalarFieldEnum = {
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
 
 
+export const ClientScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  address: 'address',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof ClientScalarFieldEnum]
+
+
 export const OrderScalarFieldEnum = {
   id: 'id',
   productId: 'productId',
-  client: 'client',
-  address: 'address',
+  clientId: 'clientId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -112,11 +123,27 @@ export const ProductOrderByRelevanceFieldEnum = {
 export type ProductOrderByRelevanceFieldEnum = (typeof ProductOrderByRelevanceFieldEnum)[keyof typeof ProductOrderByRelevanceFieldEnum]
 
 
+export const ClientOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  address: 'address'
+} as const
+
+export type ClientOrderByRelevanceFieldEnum = (typeof ClientOrderByRelevanceFieldEnum)[keyof typeof ClientOrderByRelevanceFieldEnum]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
 export const OrderOrderByRelevanceFieldEnum = {
   id: 'id',
   productId: 'productId',
-  client: 'client',
-  address: 'address'
+  clientId: 'clientId'
 } as const
 
 export type OrderOrderByRelevanceFieldEnum = (typeof OrderOrderByRelevanceFieldEnum)[keyof typeof OrderOrderByRelevanceFieldEnum]

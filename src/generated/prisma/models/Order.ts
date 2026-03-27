@@ -27,8 +27,7 @@ export type AggregateOrder = {
 export type OrderMinAggregateOutputType = {
   id: string | null
   productId: string | null
-  client: string | null
-  address: string | null
+  clientId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -36,8 +35,7 @@ export type OrderMinAggregateOutputType = {
 export type OrderMaxAggregateOutputType = {
   id: string | null
   productId: string | null
-  client: string | null
-  address: string | null
+  clientId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -45,8 +43,7 @@ export type OrderMaxAggregateOutputType = {
 export type OrderCountAggregateOutputType = {
   id: number
   productId: number
-  client: number
-  address: number
+  clientId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -56,8 +53,7 @@ export type OrderCountAggregateOutputType = {
 export type OrderMinAggregateInputType = {
   id?: true
   productId?: true
-  client?: true
-  address?: true
+  clientId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -65,8 +61,7 @@ export type OrderMinAggregateInputType = {
 export type OrderMaxAggregateInputType = {
   id?: true
   productId?: true
-  client?: true
-  address?: true
+  clientId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -74,8 +69,7 @@ export type OrderMaxAggregateInputType = {
 export type OrderCountAggregateInputType = {
   id?: true
   productId?: true
-  client?: true
-  address?: true
+  clientId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -155,9 +149,8 @@ export type OrderGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 
 export type OrderGroupByOutputType = {
   id: string
-  productId: string
-  client: string
-  address: string
+  productId: string | null
+  clientId: string | null
   createdAt: Date
   updatedAt: Date
   _count: OrderCountAggregateOutputType | null
@@ -165,7 +158,7 @@ export type OrderGroupByOutputType = {
   _max: OrderMaxAggregateOutputType | null
 }
 
-type GetOrderGroupByPayload<T extends OrderGroupByArgs> = Prisma.PrismaPromise<
+export type GetOrderGroupByPayload<T extends OrderGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<OrderGroupByOutputType, T['by']> &
       {
@@ -185,20 +178,22 @@ export type OrderWhereInput = {
   OR?: Prisma.OrderWhereInput[]
   NOT?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
   id?: Prisma.StringFilter<"Order"> | string
-  productId?: Prisma.StringFilter<"Order"> | string
-  client?: Prisma.StringFilter<"Order"> | string
-  address?: Prisma.StringFilter<"Order"> | string
+  productId?: Prisma.StringNullableFilter<"Order"> | string | null
+  clientId?: Prisma.StringNullableFilter<"Order"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
+  product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
+  client?: Prisma.XOR<Prisma.ClientNullableScalarRelationFilter, Prisma.ClientWhereInput> | null
 }
 
 export type OrderOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  productId?: Prisma.SortOrder
-  client?: Prisma.SortOrder
-  address?: Prisma.SortOrder
+  productId?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  product?: Prisma.ProductOrderByWithRelationInput
+  client?: Prisma.ClientOrderByWithRelationInput
   _relevance?: Prisma.OrderOrderByRelevanceInput
 }
 
@@ -207,18 +202,18 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
   OR?: Prisma.OrderWhereInput[]
   NOT?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
-  productId?: Prisma.StringFilter<"Order"> | string
-  client?: Prisma.StringFilter<"Order"> | string
-  address?: Prisma.StringFilter<"Order"> | string
+  productId?: Prisma.StringNullableFilter<"Order"> | string | null
+  clientId?: Prisma.StringNullableFilter<"Order"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
+  product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
+  client?: Prisma.XOR<Prisma.ClientNullableScalarRelationFilter, Prisma.ClientWhereInput> | null
 }, "id">
 
 export type OrderOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  productId?: Prisma.SortOrder
-  client?: Prisma.SortOrder
-  address?: Prisma.SortOrder
+  productId?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.OrderCountOrderByAggregateInput
@@ -231,74 +226,74 @@ export type OrderScalarWhereWithAggregatesInput = {
   OR?: Prisma.OrderScalarWhereWithAggregatesInput[]
   NOT?: Prisma.OrderScalarWhereWithAggregatesInput | Prisma.OrderScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Order"> | string
-  productId?: Prisma.StringWithAggregatesFilter<"Order"> | string
-  client?: Prisma.StringWithAggregatesFilter<"Order"> | string
-  address?: Prisma.StringWithAggregatesFilter<"Order"> | string
+  productId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  clientId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
 }
 
 export type OrderCreateInput = {
   id?: string
-  productId: string
-  client: string
-  address: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  product?: Prisma.ProductCreateNestedOneWithoutOrdersInput
+  client?: Prisma.ClientCreateNestedOneWithoutOrdersInput
 }
 
 export type OrderUncheckedCreateInput = {
   id?: string
-  productId: string
-  client: string
-  address: string
+  productId?: string | null
+  clientId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type OrderUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
-  client?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneWithoutOrdersNestedInput
+  client?: Prisma.ClientUpdateOneWithoutOrdersNestedInput
 }
 
 export type OrderUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
-  client?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type OrderCreateManyInput = {
   id?: string
-  productId: string
-  client: string
-  address: string
+  productId?: string | null
+  clientId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type OrderUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
-  client?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type OrderUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
-  client?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OrderListRelationFilter = {
+  every?: Prisma.OrderWhereInput
+  some?: Prisma.OrderWhereInput
+  none?: Prisma.OrderWhereInput
+}
+
+export type OrderOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type OrderOrderByRelevanceInput = {
@@ -310,8 +305,7 @@ export type OrderOrderByRelevanceInput = {
 export type OrderCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
-  client?: Prisma.SortOrder
-  address?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -319,8 +313,7 @@ export type OrderCountOrderByAggregateInput = {
 export type OrderMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
-  client?: Prisma.SortOrder
-  address?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -328,10 +321,244 @@ export type OrderMaxOrderByAggregateInput = {
 export type OrderMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
-  client?: Prisma.SortOrder
-  address?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type OrderCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutProductInput, Prisma.OrderUncheckedCreateWithoutProductInput> | Prisma.OrderCreateWithoutProductInput[] | Prisma.OrderUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutProductInput | Prisma.OrderCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.OrderCreateManyProductInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
+export type OrderUncheckedCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutProductInput, Prisma.OrderUncheckedCreateWithoutProductInput> | Prisma.OrderCreateWithoutProductInput[] | Prisma.OrderUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutProductInput | Prisma.OrderCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.OrderCreateManyProductInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
+export type OrderUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutProductInput, Prisma.OrderUncheckedCreateWithoutProductInput> | Prisma.OrderCreateWithoutProductInput[] | Prisma.OrderUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutProductInput | Prisma.OrderCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutProductInput | Prisma.OrderUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.OrderCreateManyProductInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutProductInput | Prisma.OrderUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutProductInput | Prisma.OrderUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
+export type OrderUncheckedUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutProductInput, Prisma.OrderUncheckedCreateWithoutProductInput> | Prisma.OrderCreateWithoutProductInput[] | Prisma.OrderUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutProductInput | Prisma.OrderCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutProductInput | Prisma.OrderUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.OrderCreateManyProductInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutProductInput | Prisma.OrderUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutProductInput | Prisma.OrderUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
+export type OrderCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutClientInput, Prisma.OrderUncheckedCreateWithoutClientInput> | Prisma.OrderCreateWithoutClientInput[] | Prisma.OrderUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutClientInput | Prisma.OrderCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.OrderCreateManyClientInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
+export type OrderUncheckedCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutClientInput, Prisma.OrderUncheckedCreateWithoutClientInput> | Prisma.OrderCreateWithoutClientInput[] | Prisma.OrderUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutClientInput | Prisma.OrderCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.OrderCreateManyClientInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
+export type OrderUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutClientInput, Prisma.OrderUncheckedCreateWithoutClientInput> | Prisma.OrderCreateWithoutClientInput[] | Prisma.OrderUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutClientInput | Prisma.OrderCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutClientInput | Prisma.OrderUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.OrderCreateManyClientInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutClientInput | Prisma.OrderUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutClientInput | Prisma.OrderUpdateManyWithWhereWithoutClientInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
+export type OrderUncheckedUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutClientInput, Prisma.OrderUncheckedCreateWithoutClientInput> | Prisma.OrderCreateWithoutClientInput[] | Prisma.OrderUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutClientInput | Prisma.OrderCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutClientInput | Prisma.OrderUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.OrderCreateManyClientInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutClientInput | Prisma.OrderUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutClientInput | Prisma.OrderUpdateManyWithWhereWithoutClientInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type OrderCreateWithoutProductInput = {
+  id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  client?: Prisma.ClientCreateNestedOneWithoutOrdersInput
+}
+
+export type OrderUncheckedCreateWithoutProductInput = {
+  id?: string
+  clientId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderCreateOrConnectWithoutProductInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutProductInput, Prisma.OrderUncheckedCreateWithoutProductInput>
+}
+
+export type OrderCreateManyProductInputEnvelope = {
+  data: Prisma.OrderCreateManyProductInput | Prisma.OrderCreateManyProductInput[]
+  skipDuplicates?: boolean
+}
+
+export type OrderUpsertWithWhereUniqueWithoutProductInput = {
+  where: Prisma.OrderWhereUniqueInput
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutProductInput, Prisma.OrderUncheckedUpdateWithoutProductInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutProductInput, Prisma.OrderUncheckedCreateWithoutProductInput>
+}
+
+export type OrderUpdateWithWhereUniqueWithoutProductInput = {
+  where: Prisma.OrderWhereUniqueInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutProductInput, Prisma.OrderUncheckedUpdateWithoutProductInput>
+}
+
+export type OrderUpdateManyWithWhereWithoutProductInput = {
+  where: Prisma.OrderScalarWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateManyMutationInput, Prisma.OrderUncheckedUpdateManyWithoutProductInput>
+}
+
+export type OrderScalarWhereInput = {
+  AND?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+  OR?: Prisma.OrderScalarWhereInput[]
+  NOT?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+  id?: Prisma.StringFilter<"Order"> | string
+  productId?: Prisma.StringNullableFilter<"Order"> | string | null
+  clientId?: Prisma.StringNullableFilter<"Order"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
+}
+
+export type OrderCreateWithoutClientInput = {
+  id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product?: Prisma.ProductCreateNestedOneWithoutOrdersInput
+}
+
+export type OrderUncheckedCreateWithoutClientInput = {
+  id?: string
+  productId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderCreateOrConnectWithoutClientInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutClientInput, Prisma.OrderUncheckedCreateWithoutClientInput>
+}
+
+export type OrderCreateManyClientInputEnvelope = {
+  data: Prisma.OrderCreateManyClientInput | Prisma.OrderCreateManyClientInput[]
+  skipDuplicates?: boolean
+}
+
+export type OrderUpsertWithWhereUniqueWithoutClientInput = {
+  where: Prisma.OrderWhereUniqueInput
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutClientInput, Prisma.OrderUncheckedUpdateWithoutClientInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutClientInput, Prisma.OrderUncheckedCreateWithoutClientInput>
+}
+
+export type OrderUpdateWithWhereUniqueWithoutClientInput = {
+  where: Prisma.OrderWhereUniqueInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutClientInput, Prisma.OrderUncheckedUpdateWithoutClientInput>
+}
+
+export type OrderUpdateManyWithWhereWithoutClientInput = {
+  where: Prisma.OrderScalarWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateManyMutationInput, Prisma.OrderUncheckedUpdateManyWithoutClientInput>
+}
+
+export type OrderCreateManyProductInput = {
+  id?: string
+  clientId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.ClientUpdateOneWithoutOrdersNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OrderUncheckedUpdateManyWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OrderCreateManyClientInput = {
+  id?: string
+  productId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderUpdateWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneWithoutOrdersNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OrderUncheckedUpdateManyWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -339,10 +566,11 @@ export type OrderMinOrderByAggregateInput = {
 export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   productId?: boolean
-  client?: boolean
-  address?: boolean
+  clientId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  product?: boolean | Prisma.Order$productArgs<ExtArgs>
+  client?: boolean | Prisma.Order$clientArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 
@@ -350,22 +578,27 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type OrderSelectScalar = {
   id?: boolean
   productId?: boolean
-  client?: boolean
-  address?: boolean
+  clientId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "client" | "address" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "clientId" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  product?: boolean | Prisma.Order$productArgs<ExtArgs>
+  client?: boolean | Prisma.Order$clientArgs<ExtArgs>
+}
 
 export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Order"
-  objects: {}
+  objects: {
+    product: Prisma.$ProductPayload<ExtArgs> | null
+    client: Prisma.$ClientPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    productId: string
-    client: string
-    address: string
+    productId: string | null
+    clientId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["order"]>
@@ -708,6 +941,8 @@ readonly fields: OrderFieldRefs;
  */
 export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  product<T extends Prisma.Order$productArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$productArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  client<T extends Prisma.Order$clientArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$clientArgs<ExtArgs>>): Prisma.Prisma__ClientClient<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -739,8 +974,7 @@ export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface OrderFieldRefs {
   readonly id: Prisma.FieldRef<"Order", 'String'>
   readonly productId: Prisma.FieldRef<"Order", 'String'>
-  readonly client: Prisma.FieldRef<"Order", 'String'>
-  readonly address: Prisma.FieldRef<"Order", 'String'>
+  readonly clientId: Prisma.FieldRef<"Order", 'String'>
   readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Order", 'DateTime'>
 }
@@ -760,6 +994,10 @@ export type OrderFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  /**
    * Filter, which Order to fetch.
    */
   where: Prisma.OrderWhereUniqueInput
@@ -778,6 +1016,10 @@ export type OrderFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  /**
    * Filter, which Order to fetch.
    */
   where: Prisma.OrderWhereUniqueInput
@@ -795,6 +1037,10 @@ export type OrderFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Order
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
   /**
    * Filter, which Order to fetch.
    */
@@ -844,6 +1090,10 @@ export type OrderFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  /**
    * Filter, which Order to fetch.
    */
   where?: Prisma.OrderWhereInput
@@ -891,6 +1141,10 @@ export type OrderFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Order
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
   /**
    * Filter, which Orders to fetch.
    */
@@ -940,6 +1194,10 @@ export type OrderCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  /**
    * The data needed to create a Order.
    */
   data: Prisma.XOR<Prisma.OrderCreateInput, Prisma.OrderUncheckedCreateInput>
@@ -968,6 +1226,10 @@ export type OrderUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Order
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
   /**
    * The data needed to update a Order.
    */
@@ -1009,6 +1271,10 @@ export type OrderUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  /**
    * The filter to search for the Order to update in case it exists.
    */
   where: Prisma.OrderWhereUniqueInput
@@ -1035,6 +1301,10 @@ export type OrderDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  /**
    * Filter which Order to delete.
    */
   where: Prisma.OrderWhereUniqueInput
@@ -1055,6 +1325,44 @@ export type OrderDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * Order.product
+ */
+export type Order$productArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Product
+   */
+  select?: Prisma.ProductSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Product
+   */
+  omit?: Prisma.ProductOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductInclude<ExtArgs> | null
+  where?: Prisma.ProductWhereInput
+}
+
+/**
+ * Order.client
+ */
+export type Order$clientArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Client
+   */
+  select?: Prisma.ClientSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Client
+   */
+  omit?: Prisma.ClientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
+  where?: Prisma.ClientWhereInput
+}
+
+/**
  * Order without action
  */
 export type OrderDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1066,4 +1374,8 @@ export type OrderDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Order
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
 }
